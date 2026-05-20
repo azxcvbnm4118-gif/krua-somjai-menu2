@@ -288,7 +288,13 @@ footer { background: #050505; border-top: 1px solid rgba(255,42,0,0.2); padding:
 <!-- Navbar -->
 <nav class="navbar" id="navbar">
 <div class="navbar-content">
-<a href="#" class="navbar-logo"><img src="images/โลโก้ร้าน.png" alt="Logo" class="navbar-logo-img">ส้มตำแซ่บนัว</a>
+<a href="#" class="navbar-logo">
+    <img src="images/logo.png" alt="โลโก้ร้าน" class="navbar-logo-img">
+    ส้มตำแซ่บนัว
+</a>
+    <img src="images/menu6.webp" alt="ลาบหมู">
+    <img src="images/menu8.webp" alt="ไทยเหลาทะเลรวม
+">
 <ul class="navbar-links">
 <li><a href="#menu">เมนูอาหาร</a></li>
 <li><a href="#order">สั่งอาหาร</a></li>
@@ -1058,15 +1064,15 @@ function submitOrder(e) {
     let message = '🍽️ สั่งอาหารจาก ส้มตำแซ่บนัว ครัวสมใจ%0A%0A';
     message += '👤 ชื่อ: ' + encodeURIComponent(data.name) + '%0A';
     message += '📞 เบอร์: ' + encodeURIComponent(data.phone) + '%0A';
-    message += '📍 ที่อยู่: ' + encodeURIComponent(data.address) + '%0A';
     message += '🍴 รายการ: ' + encodeURIComponent(data.items) + '%0A';
     message += '⏰ เวลา: ' + encodeURIComponent(data.time) + '%0A';
     message += '💳 ชำระ: ' + (data.payment === 'cod' ? 'เก็บเงินปลายทาง' : 'โอนเงิน') + '%0A';
     if (data.note) message += '📝 หมายเหตุ: ' + encodeURIComponent(data.note) + '%0A';
 
     const phone = '0965107402';
-    window.open('https://wa.me/66' + phone + '?text=' + message, '_blank');
-    showToast('กำลังเปิด WhatsApp เพื่อส่งคำสั่งซื้อ...');
+    window.open('https://lin.ee/5Qev6zd', '_blank');
+showToast('กำลังเปิด LINE เพื่อส่งคำสั่งซื้อ...');
+;
 }
 
 // ===== MOBILE MENU =====

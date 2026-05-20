@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ส้มตำแซ่บนัว ครัวสมใจ | อาหารอีสาน ส้มตำ ยำ ลาบ</title>
+<link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+:root {
+    --fire-red: #ff2a00; --fire-orange: #ff6b00; --fire-yellow: #ffcc00;
+    --dark-bg: #0a0a0a; --dark-card: #141414; --gold: #d4a853;
+    --gold-light: #f0d78c; --white: #ffffff; --gray: #888888; --gray-light: #cccccc;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+    font-family: 'Prompt', sans-serif;
+    background-color: var(--dark-bg); color: var(--white);
+    line-height: 1.6; overflow-x: hidden;
+}
+
+/* HERO */
+.hero {
+    position: relative; min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    text-align: center; overflow: hidden;
+    background: linear-gradient(180deg, #1a0000 0%, #0a0a0a 100%);
+}
+.hero::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    background:
+        radial-gradient(ellipse at 20% 50%, rgba(255,42,0,0.15) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 50%, rgba(255,107,0,0.1) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 100%, rgba(255,42,0,0.08) 0%, transparent 40%);
+    z-index: 1;
+}
+.hero-particles { position: absolute; top: 0; left: 0; right: 0; bottom: 0; z-index: 2; overflow: hidden; }
+.particle {
+    position: absolute; width: 4px; height: 4px;
+    background: var(--fire-orange); border-radius: 50%;
+    animation: float-up 8s infinite ease-in-out; opacity: 0;
+}
+@keyframes float-up {
+    0% { transform: translateY(100vh) scale(0); opacity: 0; }
+    10% { opacity: 0.8; } 90% { opacity: 0.3; }
+    100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
+}
+.hero-content { position: relative; z-index: 10; padding: 2rem; max-width: 900px; }
+.hero-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--fire-red), var(--fire-orange));
+    color: var(--white); padding: 0.5rem 1.5rem; border-radius: 50px;
+    font-size: 0.9rem; font-weight: 700; letter-spacing: 2px;
+    margin-bottom: 1.5rem; animation: pulse-glow 2s infinite;
+    box-shadow: 0 0 20px rgba(255,42,0,0.5);
+}
+@keyframes pulse-glow {
+    0%, 100% { box-shadow: 0 0 20px rgba(255,42,0,0.5); }
+    50% { box-shadow: 0 0 40px rgba(255,42,0,0.8); }
+}
+.hero h1 {
+    font-size: clamp(2.5rem, 6vw, 5rem); font-weight: 900;
+    line-height: 1.1; margin-bottom: 1rem;
+    background: linear-gradient(135deg, var(--fire-yellow), var(--fire-orange), var(--fire-red));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    letter-spacing: -1px;
+}
+.hero-subtitle {
+    font-size: clamp(1rem, 2.5vw, 1.5rem); color: var(--gray-light);
+    margin-bottom: 2rem; font-weight: 400;
+}
+.hero-fire-icons { font-size: 2rem; margin-bottom: 2rem; animation: flicker 1.5s infinite alternate; }
+@keyframes flicker { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.7; transform: scale(1.1); } }
+.hero-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+.btn {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 1rem 2.5rem; border-radius: 50px;
+    font-family: 'Prompt', sans-serif; font-size: 1rem; font-weight: 700;
+    text-decoration: none; cursor: pointer; transition: all 0.3s ease; border: none;
+}
+.btn-primary {
+    background: linear-gradient(135deg, var(--fire-red), var(--fire-orange));
+    color: var(--white); box-shadow: 0 4px 20px rgba(255,42,0,0.4);
+}
+.btn-primary:hover { transform: translateY(-3px) scale(1.05); box-shadow: 0 8px 30px rgba(255,42,0,0.6); }
+.btn-secondary { background: transparent; color: var(--white); border: 2px solid var(--fire-orange); }
+.btn-secondary:hover { background: var(--fire-orange); transform: translateY(-3px); }
+.scroll-indicator { position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%); z-index: 10; animation: bounce 2s infinite; }
+@keyframes bounce { 0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); } 40% { transform: translateX(-50%) translateY(-10px); } 60% { transform: translateX(-50%) translateY(-5px); } }
+
+/* NAVBAR */
+.navbar {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    background: rgba(10,10,10,0.95); backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255,42,0,0.2); padding: 0.8rem 2rem;
+    transition: all 0.3s ease;
+}
+.navbar.hidden { transform: translateY(-100%); }
+.navbar-content { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+.navbar-logo {
+    font-size: 1.3rem; font-weight: 800;
+    background: linear-gradient(135deg, var(--fire-yellow), var(--fire-orange));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    text-decoration: none;
+}
+.navbar-links { display: flex; gap: 2rem; list-style: none; }
+.navbar-links a { color: var(--gray-light); text-decoration: none; font-weight: 500; font-size: 0.9rem; transition: color 0.3s ease; position: relative; }
+.navbar-links a::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 2px; background: linear-gradient(90deg, var(--fire-red), var(--fire-orange)); transition: width 0.3s ease; }
+.navbar-links a:hover { color: var(--fire-orange); }
+.navbar-links a:hover::after { width: 100%; }
+.navbar-order-btn { background: linear-gradient(135deg, var(--fire-red), var(--fire-orange)); color: var(--white); padding: 0.6rem 1.5rem; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 0.85rem; transition: all 0.3s ease; }
+.navbar-order-btn:hover { transform: scale(1.05); box-shadow: 0 4px 15px rgba(255,42,0,0.4); }
+.mobile-menu-btn { display: none; background: none; border: none; color: var(--white); font-size: 1.5rem; cursor: pointer; }
+
+/* SECTIONS */
+.section { padding: 5rem 2rem; max-width: 1400px; margin: 0 auto; }
+.section-header { text-align: center; margin-bottom: 3rem; }
+.section-label { display: inline-block; background: linear-gradient(135deg, var(--fire-red), var(--fire-orange)); color: var(--white); padding: 0.3rem 1rem; border-radius: 20px; font-size: 0.8rem; font-weight: 700; letter-spacing: 2px; margin-bottom: 1rem; }
+.section-title { font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; margin-bottom: 1rem; background: linear-gradient(135deg, var(--white), var(--gold-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.section-subtitle { color: var(--gray); font-size: 1.1rem; max-width: 600px; margin: 0 auto; }
+
+/* CATEGORY NAV */
+.category-nav { display: flex; justify-content: center; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 3rem; padding: 0 1rem; }
+.category-btn { background: var(--dark-card); border: 1px solid rgba(255,107,0,0.2); color: var(--gray-light); padding: 0.7rem 1.5rem; border-radius: 50px; cursor: pointer; font-family: 'Prompt', sans-serif; font-size: 0.9rem; font-weight: 600; transition: all 0.3s ease; }
+.category-btn:hover, .category-btn.active { background: linear-gradient(135deg, var(--fire-red), var(--fire-orange)); color: var(--white); border-color: transparent; transform: translateY(-2px); box-shadow: 0 4px 15px rgba(255,42,0,0.3); }
+
+/* MENU GRID */
+.menu-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
+.menu-card { background: var(--dark-card); border-radius: 20px; overflow: hidden; border: 1px solid rgba(255,107,0,0.1); transition: all 0.4s ease; position: relative; }
+.menu-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--fire-red), var(--fire-orange), var(--fire-yellow)); opacity: 0; transition: opacity 0.3s ease; }
+.menu-card:hover { transform: translateY(-8px); border-color: rgba(255,107,0,0.4); box-shadow: 0 20px 40px rgba(255,42,0,0.15); }
+.menu-card:hover::before { opacity: 1; }
+.menu-image-wrapper { position: relative; width: 100%; height: 240px; overflow: hidden; }
+.menu-image { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+.menu-card:hover .menu-image { transform: scale(1.1); }
+.menu-image-overlay { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(to top, rgba(10,10,10,0.9) 0%, transparent 50%); }
+.menu-badges { position: absolute; top: 1rem; left: 1rem; display: flex; gap: 0.5rem; flex-wrap: wrap; }
+.menu-badge { background: rgba(255,42,0,0.9); color: var(--white); padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.75rem; font-weight: 700; }
+.menu-badge.hot { background: linear-gradient(135deg, #ff0000, #ff4500); }
+.menu-badge.recommended { background: linear-gradient(135deg, var(--gold), #ff9500); }
+.menu-badge.bestseller { background: linear-gradient(135deg, #ff2a00, #ff6b00); }
+.menu-content { padding: 1.5rem; }
+.menu-header { display: flex; justify-content: space-between; align-items: start; margin-bottom: 0.8rem; }
+.menu-name { font-size: 1.25rem; font-weight: 700; color: var(--white); flex: 1; line-height: 1.3; }
+.menu-price { font-size: 1.4rem; font-weight: 800; color: var(--fire-orange); margin-left: 0.5rem; white-space: nowrap; }
+.menu-description { color: var(--gray); font-size: 0.9rem; margin-bottom: 1rem; line-height: 1.6; }
+.menu-footer { display: flex; justify-content: space-between; align-items: center; }
+.menu-spicy { display: flex; gap: 0.2rem; }
+.menu-spicy i { color: var(--fire-red); font-size: 0.8rem; }
+.add-to-cart { background: linear-gradient(135deg, var(--fire-red), var(--fire-orange)); color: var(--white); border: none; padding: 0.6rem 1.2rem; border-radius: 25px; font-family: 'Prompt', sans-serif; font-size: 0.85rem; font-weight: 700; cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; gap: 0.4rem; }
+.add-to-cart:hover { transform: scale(1.05); box-shadow: 0 4px 15px rgba(255,42,0,0.4); }
+
+/* ORDER SECTION */
+.order-section { background: linear-gradient(180deg, #0f0f0f 0%, #1a0500 100%); border-top: 1px solid rgba(255,42,0,0.2); border-bottom: 1px solid rgba(255,42,0,0.2); }
+.order-container { max-width: 800px; margin: 0 auto; }
+.order-form { background: var(--dark-card); border-radius: 20px; padding: 2.5rem; border: 1px solid rgba(255,107,0,0.15); }
+.form-group { margin-bottom: 1.5rem; }
+.form-group label { display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--gray-light); font-size: 0.95rem; }
+.form-group input, .form-group textarea, .form-group select { width: 100%; padding: 1rem 1.2rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,107,0,0.2); border-radius: 12px; color: var(--white); font-family: 'Prompt', sans-serif; font-size: 1rem; transition: all 0.3s ease; }
+.form-group input:focus, .form-group textarea:focus, .form-group select:focus { outline: none; border-color: var(--fire-orange); box-shadow: 0 0 15px rgba(255,107,0,0.2); }
+.form-group textarea { min-height: 120px; resize: vertical; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.submit-order { width: 100%; padding: 1.2rem; background: linear-gradient(135deg, var(--fire-red), var(--fire-orange)); color: var(--white); border: none; border-radius: 12px; font-family: 'Prompt', sans-serif; font-size: 1.1rem; font-weight: 800; cursor: pointer; transition: all 0.3s ease; text-transform: uppercase; letter-spacing: 1px; }
+.submit-order:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(255,42,0,0.4); }
+
+/* REVIEWS */
+.reviews-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 1.5rem; }
+.review-card { background: var(--dark-card); border-radius: 20px; padding: 2rem; border: 1px solid rgba(255,107,0,0.1); transition: all 0.3s ease; }
+.review-card:hover { border-color: rgba(255,107,0,0.3); transform: translateY(-5px); }
+.review-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+.review-avatar { width: 50px; height: 50px; border-radius: 50%; background: linear-gradient(135deg, var(--fire-red), var(--fire-orange)); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.2rem; }
+.review-info h4 { font-weight: 600; margin-bottom: 0.2rem; }
+.review-stars { color: var(--fire-yellow); font-size: 0.85rem; }
+.review-text { color: var(--gray-light); line-height: 1.7; font-size: 0.95rem; }
+
+/* CONTACT & MAP */
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
+.contact-info { display: flex; flex-direction: column; gap: 1.5rem; }
+.contact-item { display: flex; align-items: start; gap: 1rem; background: var(--dark-card); padding: 1.5rem; border-radius: 15px; border: 1px solid rgba(255,107,0,0.1); transition: all 0.3s ease; }
+.contact-item:hover { border-color: rgba(255,107,0,0.3); transform: translateX(5px); }
+.contact-icon { width: 50px; height: 50px; min-width: 50px; border-radius: 12px; background: linear-gradient(135deg, var(--fire-red), var(--fire-orange)); display: flex; align-items: center; justify-content: center; font-size: 1.3rem; }
+.contact-details h4 { font-weight: 600; margin-bottom: 0.3rem; color: var(--white); }
+.contact-details p, .contact-details a { color: var(--gray); text-decoration: none; font-size: 0.95rem; transition: color 0.3s ease; }
+.contact-details a:hover { color: var(--fire-orange); }
+.map-container { background: var(--dark-card); border-radius: 20px; overflow: hidden; border: 1px solid rgba(255,107,0,0.15); height: 100%; min-height: 400px; }
+.map-container iframe { width: 100%; height: 100%; min-height: 400px; border: none; }
+.social-links { display: flex; gap: 1rem; margin-top: 1rem; }
+.social-link { width: 50px; height: 50px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; color: var(--white); text-decoration: none; transition: all 0.3s ease; }
+.social-link.facebook { background: #1877f2; }
+.social-link.tiktok { background: #000; border: 1px solid #333; }
+.social-link.line { background: #00b900; }
+.social-link:hover { transform: translateY(-5px) scale(1.1); box-shadow: 0 5px 20px rgba(0,0,0,0.3); }
+
+/* FOOTER */
+footer { background: #050505; border-top: 1px solid rgba(255,42,0,0.2); padding: 3rem 2rem 2rem; }
+.footer-content { max-width: 1400px; margin: 0 auto; text-align: center; }
+.footer-logo { font-size: 1.8rem; font-weight: 900; background: linear-gradient(135deg, var(--fire-yellow), var(--fire-orange)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 1rem; }
+.footer-tagline { color: var(--gray); margin-bottom: 2rem; }
+.footer-divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(255,107,0,0.3), transparent); margin: 2rem 0; }
+.footer-copyright { color: var(--gray); font-size: 0.85rem; }
+
+/* CART */
+.cart-sidebar { position: fixed; top: 0; right: -400px; width: 400px; max-width: 100%; height: 100vh; background: var(--dark-card); z-index: 2000; transition: right 0.4s ease; border-left: 1px solid rgba(255,107,0,0.2); display: flex; flex-direction: column; }
+.cart-sidebar.open { right: 0; }
+.cart-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7); z-index: 1999; opacity: 0; visibility: hidden; transition: all 0.3s ease; }
+.cart-overlay.open { opacity: 1; visibility: visible; }
+.cart-header { padding: 1.5rem; border-bottom: 1px solid rgba(255,107,0,0.2); display: flex; justify-content: space-between; align-items: center; }
+.cart-header h3 { font-size: 1.3rem; font-weight: 700; }
+.cart-close { background: none; border: none; color: var(--white); font-size: 1.5rem; cursor: pointer; }
+.cart-items { flex: 1; overflow-y: auto; padding: 1rem; }
+.cart-empty { text-align: center; color: var(--gray); padding: 3rem 1rem; }
+.cart-item { display: flex; gap: 1rem; padding: 1rem; background: rgba(255,255,255,0.03); border-radius: 12px; margin-bottom: 0.8rem; }
+.cart-item-image { width: 70px; height: 70px; border-radius: 10px; object-fit: cover; }
+.cart-item-info { flex: 1; }
+.cart-item-name { font-weight: 600; margin-bottom: 0.3rem; }
+.cart-item-price { color: var(--fire-orange); font-weight: 700; }
+.cart-item-qty { display: flex; align-items: center; gap: 0.5rem; margin-top: 0.5rem; }
+.qty-btn { width: 28px; height: 28px; border-radius: 50%; border: 1px solid rgba(255,107,0,0.3); background: transparent; color: var(--white); cursor: pointer; display: flex; align-items: center; justify-content: center; }
+.cart-footer { padding: 1.5rem; border-top: 1px solid rgba(255,107,0,0.2); }
+.cart-total { display: flex; justify-content: space-between; margin-bottom: 1rem; font-size: 1.2rem; font-weight: 700; }
+.cart-total-price { color: var(--fire-orange); }
+.cart-checkout { width: 100%; padding: 1rem; background: linear-gradient(135deg, var(--fire-red), var(--fire-orange)); color: var(--white); border: none; border-radius: 12px; font-family: 'Prompt', sans-serif; font-size: 1rem; font-weight: 700; cursor: pointer; }
+.cart-float-btn { position: fixed; bottom: 2rem; right: 2rem; width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, var(--fire-red), var(--fire-orange)); color: var(--white); border: none; font-size: 1.3rem; cursor: pointer; z-index: 100; box-shadow: 0 4px 20px rgba(255,42,0,0.4); display: flex; align-items: center; justify-content: center; transition: all 0.3s ease; }
+.cart-float-btn:hover { transform: scale(1.1); }
+.cart-count { position: absolute; top: -5px; right: -5px; width: 24px; height: 24px; border-radius: 50%; background: var(--white); color: var(--fire-red); font-size: 0.75rem; font-weight: 800; display: flex; align-items: center; justify-content: center; }
+.hidden { display: none !important; }
+
+/* Toast */
+.toast { position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%) translateY(100px); background: var(--dark-card); color: var(--white); padding: 1rem 2rem; border-radius: 50px; border: 1px solid rgba(255,107,0,0.3); z-index: 3000; opacity: 0; transition: all 0.4s ease; font-weight: 600; display: flex; align-items: center; gap: 0.5rem; }
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* Responsive */
+@media (max-width: 768px) {
+    .navbar-links { display: none; } .mobile-menu-btn { display: block; }
+    .hero h1 { font-size: 2.5rem; } .hero-buttons { flex-direction: column; align-items: center; }
+    .btn { width: 100%; max-width: 300px; justify-content: center; }
+    .menu-grid { grid-template-columns: 1fr; } .form-row { grid-template-columns: 1fr; }
+    .contact-grid { grid-template-columns: 1fr; } .reviews-grid { grid-template-columns: 1fr; }
+    .section { padding: 3rem 1rem; }
+}
+.fade-in { opacity: 0; transform: translateY(30px); transition: all 0.6s ease; }
+.fade-in.visible { opacity: 1; transform: translateY(0); }
+
+/* ===== LOGO ===== */
+.hero-logo {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 1.5rem;
+    border: 4px solid rgba(255, 107, 0, 0.5);
+    box-shadow: 0 0 40px rgba(255, 42, 0, 0.4), 0 0 80px rgba(255, 107, 0, 0.2);
+    animation: logo-glow 3s infinite alternate;
+    transition: transform 0.3s ease;
+}
+.hero-logo:hover {
+    transform: scale(1.05);
+}
+@keyframes logo-glow {
+    0% { box-shadow: 0 0 40px rgba(255, 42, 0, 0.4), 0 0 80px rgba(255, 107, 0, 0.2); }
+    100% { box-shadow: 0 0 60px rgba(255, 42, 0, 0.6), 0 0 120px rgba(255, 107, 0, 0.4); }
+}
+
+.navbar-logo-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid rgba(255, 107, 0, 0.5);
+    margin-right: 0.5rem;
+    vertical-align: middle;
+}
+
+.footer-logo-img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid rgba(255, 107, 0, 0.5);
+    box-shadow: 0 0 30px rgba(255, 42, 0, 0.3);
+    margin-bottom: 1rem;
+}
+</style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar" id="navbar">
+<div class="navbar-content">
+<a href="#" class="navbar-logo">
+    <img src="images/logo.png" alt="โลโก้ร้าน" class="navbar-logo-img">
+    ส้มตำแซ่บนัว
+</a>
+">
+<ul class="navbar-links">
+<li><a href="#menu">เมนูอาหาร</a></li>
+<li><a href="#order">สั่งอาหาร</a></li>
+<li><a href="#reviews">รีวิว</a></li>
+<li><a href="#contact">ติดต่อ</a></li>
+</ul>
+<a href="#order" class="navbar-order-btn">🛒 สั่งเลย</a>
+<button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+</div>
+</nav>
+
+<!-- Hero -->
+<section class="hero" id="home">
+<div class="hero-particles" id="particles"></div>
+<div class="hero-content">
+<img src="images/logo.png" alt="ครัวสมใจ ส้มตำแซ่บนัว" class="hero-logo">
+<div class="hero-badge">🔥 อาหารอีสานแท้ รสเผ็ดจัดจ้าน</div>
+<h1>ส้มตำแซ่บนัว<br>ครัวสมใจ</h1>
+<p class="hero-subtitle">ส้มตำ · ยำ · ลาบ · ตำปลาร้า · ตำไม่ปลาร้า<br>รสชาติแซ่บถึงใจ วัตถุดิบสดใหม่ทุกวัน</p>
+<div class="hero-fire-icons">🔥 🌶️ ❤ 🌶️ 🔥</div>
+<div class="hero-buttons">
+<a href="#order" class="btn btn-primary">
+<i class="fas fa-shopping-bag"></i> สั่งอาหารเลย
+</a>
+<a href="#menu" class="btn btn-secondary">
+<i class="fas fa-utensils"></i> ดูเมนูทั้งหมด
+</a>
+</div>
+</div>
+<div class="scroll-indicator">
+<i class="fas fa-chevron-down" style="color: var(--fire-orange); font-size: 1.5rem;"></i>
+</div>
+</section>
+
+<!-- Menu -->
+<section class="section" id="menu">
+<div class="section-header fade-in">
+<div class="section-label">เมนูอาหาร</div>
+<h2 class="section-title">เลือกเมนูที่คุณชอบ</h2>
+<p class="section-subtitle">ส้มตำ ยำ ลาบ และอาหารอีสานรสแซ่บ คัดสรรวัตถุดิบสดใหม่ทุกวัน</p>
+</div>
+
+<div class="category-nav fade-in">
+<button class="category-btn active" onclick="filterMenu('all')">🔥 ทั้งหมด</button>
+<button class="category-btn" onclick="filterMenu('tum-plara')">🦀 ตำปลาร้า</button>
+<button class="category-btn" onclick="filterMenu('tum-noplara')">🥗 ตำไม่ปลาร้า</button>
+<button class="category-btn" onclick="filterMenu('yum')">🍤 ยำ</button>
+<button class="category-btn" onclick="filterMenu('lab')">🐷 ลาบ</button>
+<button class="category-btn" onclick="filterMenu('drink')">🥤 เครื่องดื่ม</button>
+</div>
+
+<div class="menu-grid" id="menuGrid">
+
+<div class="menu-card fade-in" data-category="tum-plara">
+<div class="menu-image-wrapper">
+<img src="images/1.เมนูตำปลาร้า.png" alt="ตำปลาร้า" class="menu-image">
+<div class="menu-image-overlay"></div>
+<div class="menu-badges">
+<span class="menu-badge hot">🔥 เผ็ดมาก</span>
+<span class="menu-badge bestseller">ขายดี</span>
+</div>
+</div>
+<div class="menu-content">
+<div class="menu-header">
+<h3 class="menu-name">ตำปลาร้า</h3>
+<span class="menu-price">฿45</span>
+</div>
+<p class="menu-description">ส้มตำรสแซ่บ ปลาร้าต้มสุก หอมมัน เปรี้ยว เค็ม เผ็ด ครบรส</p>
+<div class="menu-footer">
+<div class="menu-spicy">
+<i class="fas fa-pepper-hot"></i>
+<i class="fas fa-pepper-hot"></i>
+<i class="fas fa-pepper-hot"></i>
+</div>
+<button class="add-to-cart" onclick="addToCart('ตำปลาร้า', 45, 'images/menu7.webp')">
+<i class="fas fa-plus"></i> เพิ่ม
+</button>
+</div>
+</div>
+</div>
+
+<div class="menu-card fade-in" data-category="tum-plara">
+<div class="menu-image-wrapper">
+<img src="images/2.เมนูตำปลาร้า.png" alt="ตำซั่ว" class="menu-image">
+<div class="menu-image-overlay"></div>
+<div class="menu-badges">
+<span class="menu-badge hot">🔥 เผ็ด</span>
+</div>
+</div>
+<div class="menu-content">
+<div class="menu-header">
+<h3 class="menu-name">ตำซั่ว</h3>
+<span class="menu-price">฿49</span>
+</div>
+<p class="menu-description">ส้มตำซั่วรสจัดจ้าน ผสมขนมจีน เส้นนุ่ม รสชาติเข้มข้น</p>
+<div class="menu-footer">
+<div class="menu-spicy">
+<i class="fas fa-pepper-hot"></i>
+<i class="fas fa-pepper-hot"></i>
+</div>
+<button class="add-to-cart" onclick="addToCart('ตำซั่ว', 49, 'images/2.เมนูตำปลาร้า.png')">
+<i class="fas fa-plus"></i> เพิ่ม
+</button>
+</div>
+</div>
+</div>
+
+<div class="menu-card fade-in" data-category="tum-plara">
+<div class="menu-image-wrapper">
+<img src="images/IMG_1523.jpg" alt="ตำปูปลาร้า" class="menu-image">
+<div class="menu-image-overlay"></div>
+<div class="menu-badges">
+<span class="menu-badge hot">🔥 เผ็ดมาก</span>
+<span class="menu-badge recommended">⭐ แนะนำ</span>
+</div>
+</div>
+<div class="menu-content">
+<div class="menu-header">
+<h3 class="menu-name">ตำปูปลาร้า</h3>
+<span class="menu-price">฿45</span>
+</div>
+<p class="menu-description">ปูดองเนื้อแน่น น้ำปลาร้าต้มสุก เผ็ดจัด แซ่บถึงใจ</p>
+<div class="menu-footer">
+<div class="menu-spicy">
+<i class="fas fa-pepper-hot"></i>
+<i class="fas fa-pepper-hot"></i>
+<i class="fas fa-pepper-hot"></i>
+<i class="fas fa-pepper-hot"></i>
+</div>
+<button class="add-to-cart" onclick="addToCart('ตำปูปลาร้า', 45, 'images/IMG_1523.jpg')">
+<i class="fas fa-plus"></i> เพิ่ม
+</button>
+</div>
+</div>
+</div>
+
+<div class="menu-card fade-in" data-category="tum-noplara">
+<div class="menu-image-wrapper">
+<img src="images/3.เมนูตำไม่ปลาร้า.png" alt="ตำไทย" class="menu-image">
+<div class="menu-image-overlay"></div>
+<div class="menu-badges">
+<span class="menu-badge">🌶️ ปานกลาง</span>
+</div>
+</div>
+<div class="menu-content">
+<div class="menu-header">
+<h3 class="menu-name">ตำไทย</h3>
+<span class="menu-price">฿45</span>
+</div>
+<p class="menu-description">ส้มตำไทยรสเปรี้ยวหวาน ไม่ใส่ปลาร้า ถั่วลิสงคั่วหอมๆ</p>
+<div class="menu-footer">
+<div class="menu-spicy">
+<i class="fas fa-pepper-hot"></i>
+</div>
+<button class="add-to-cart" onclick="addToCart('ตำไทย', 45, 'images/3.เมนูตำไม่ปลาร้า.png')">
+<i class="fas fa-plus"></i> เพิ่ม
+</button>
+</div>
+</div>
+</div>
+
+<div class="menu-card fade-in" data-category="tum-noplara">
+<div class="menu-image-wrapper">
+<img src="images/4.เมนูตำไม่ปลาร้า.png" alt="ตำข้าวโพด" class="menu-image">
+<div class="menu-image-overlay"></div>
+<div class="menu-badges">
+<span class="menu-badge">🌽 สดใหม่</span>
+</div>
+</div>
+<div class="menu-content">
+<div class="menu-header">
+<h3 class="menu-name">ตำข้าวโพด</h3>
+<span class="menu-price">฿59</span>
+</div>
+<p class="menu-description">ข้าวโพดหวานฉ่ำ คลุกเคล้ากับน้ำส้มตำรสแซ่บ กรุบกรอบ</p>
+<div class="menu-footer">
+<div class="menu-spicy">
+<i class="fas fa-pepper-hot"></i>
+<i class="fas fa-pepper-hot"></i>
+</div>
+<button class="add-to-cart" onclick="addToCart('ตำข้าวโพด', 59, 'images/4.เมนูตำไม่ปลาร้า.png')">
+<i class="fas fa-plus"></i> เพิ่ม
+</button>
+</div>
+</div>
+</div>
+
+<div class="menu-card fade-in" data-category="yum">
+<div class="menu-image-wrapper">
+<img src="images/5.เมนูยำ.png" alt="ยำวุ้นเส้น" class="menu-image">
+<div class="menu-image-overlay"></div>
+<div class="menu-badges">
+<span class="menu-badge hot">🔥 เผ็ด</span>
+<span class="menu-badge bestseller">ขายดี</span>
+</div>
+</div>
+<div class="menu-content">
+<div class="menu-header">
+<h3 class="menu-name">ยำวุ้นเส้น</h3>
+<span class="menu-price">฿59</span>
+</div>
+<p class="menu-description">วุ้นเส้นนุ่มๆ คลุกเคล้ากับน้ำยำรสแซ่บ กุ้งสด หมูสับ</p>
+<div class="menu-footer">
+<div class="menu-spicy">
+<i class="fas fa-pepper-hot"></i>
+<i class="fas fa-pepper-hot"></i>
+<i class="fas fa-pepper-hot"></i>
+</div>
+<button class="add-to-cart" onclick="addToCart('ยำวุ้นเส้น', 59, 'images/5.เมนูยำ.png')">
+<i class="fas fa-plus"></i> เพิ่ม
+</button>
+</div>
+</div>
+</div>
+
+<div class="menu-card fade-in" data-category="yum">
+<div class="menu-image-wrapper">
+<img src="images/menu8.webp" alt="ไทยเหลาทะเลรวม" class="menu-image">
+<div class="menu-image-overlay"></div>
+<div class="menu-badges">
+<span class="menu-badge hot">🔥 เผ็ดมาก</span>
+<span class="menu-badge recommended">⭐ แนะนำ</span>
+</div>
+</div>
+<div class="menu-content">
+<div class="menu-header">
+<h3 class="menu-name">ไทยเหลาทะเลรวม</h3>
+<span class="menu-price">฿139</span>
+</div>
+<p class="menu-description">ทะเลสดทุกคำ กุ้ง ปลาหมึก หอยจุบ รวมรสเปรี้ยวเผ็ด แซ่บยกทะเล!</p>
+<div class="menu-footer">
+<div class="menu-spicy">
+<i class="fas fa-pepper-hot"></i>
+<i class="fas fa-pepper-hot"></i>
+<i class="fas fa-pepper-hot"></i>
+<i class="fas fa-pepper-hot"></i>
+</div>
+<button class="add-to-cart" onclick="addToCart('ไทยเหลาทะเลรวม', 139, 'images/menu8.webp')">
+<i class="fas fa-plus"></i> เพิ่ม
+</button>
+</div>
+</div>
+</div>
+
+<div class="menu-card fade-in" data-category="lab">
+<div class="menu-image-wrapper">
+<img src="images/IMG_1522.jpg" alt="ลาบหมู" class="menu-image">
+<div class="menu-image-overlay"></div>
+<div class="menu-badges">
+<span class="menu-badge hot">🔥 เผ็ด</span>
+<span class="menu-badge bestseller">ขายดี</span>
+</div>
+</div>
+<div class="menu-content">
+<div class="menu-header">
+<h3 class="menu-name">ลาบหมู</h3>
+<span class="menu-price">฿49</span>
+</div>
+<p class="menu-description">หมูสับสดใหม่ หอมข้าวคั่ว รสชาติเผ็ดเปรี้ยว ครบเครื่องครบรส</p>
+<div class="menu-footer">
+<div class="menu-spicy">
+<i class="fas fa-pepper-hot"></i>
+<i class="fas fa-pepper-hot"></i>
+<i class="fas fa-pepper-hot"></i>
+</div>
+<button class="add-to-cart" onclick="addToCart('ลาบหมู', 49, 'images/IMG_1522.jpg')">
+<i class="fas fa-plus"></i> เพิ่ม
+</button>
+</div>
+</div>
+</div>
+
+<div class="menu-card fade-in" data-category="drink">
+<div class="menu-image-wrapper">
+<img src="images/เมนูเครื่องดื่มล่าสุด โพสเฟส.png" alt="น้ำแดงโซดา" class="menu-image">
+<div class="menu-image-overlay"></div>
+<div class="menu-badges">
+<span class="menu-badge">🥤 สดชื่น</span>
+</div>
+</div>
+<div class="menu-content">
+<div class="menu-header">
+<h3 class="menu-name">น้ำแดงโซดา</h3>
+<span class="menu-price">฿30</span>
+</div>
+<p class="menu-description">น้ำแดงโซดาสดชื่น หวานหอม ดับเผ็ด คู่กับส้มตำได้ดี</p>
+<div class="menu-footer">
+<div class="menu-spicy">
+<span style="color: var(--gray); font-size: 0.8rem;">❄️ เย็น</span>
+</div>
+<button class="add-to-cart" onclick="addToCart('น้ำแดงโซดา', 30, 'images/เมนูเครื่องดื่มล่าสุด โพสเฟส.png')">
+<i class="fas fa-plus"></i> เพิ่ม
+</button>
+</div>
+</div>
+</div>
+
+<div class="menu-card fade-in" data-category="drink">
+<div class="menu-image-wrapper">
+<img src="images/เมนูเครื่องดื่มล่าสุด โพสเฟส.png" alt="ชาเย็น" class="menu-image">
+<div class="menu-image-overlay"></div>
+<div class="menu-badges">
+<span class="menu-badge">🧋 ขายดี</span>
+</div>
+</div>
+<div class="menu-content">
+<div class="menu-header">
+<h3 class="menu-name">ชาเย็น</h3>
+<span class="menu-price">฿30</span>
+</div>
+<p class="menu-description">ชาเย็นหอมกลิ่นชาแท้ หวานมัน สดชื่น ดับเผ็ดได้ดี</p>
+<div class="menu-footer">
+<div class="menu-spicy">
+<span style="color: var(--gray); font-size: 0.8rem;">❄️ เย็น</span>
+</div>
+<button class="add-to-cart" onclick="addToCart('ชาเย็น', 30, 'images/เมนูเครื่องดื่มล่าสุด โพสเฟส.png')">
+<i class="fas fa-plus"></i> เพิ่ม
+</button>
+</div>
+</div>
+</div>
+
+</div>
+</section>
+
+<!-- Order -->
+<section class="section order-section" id="order">
+<div class="section-header fade-in">
+<div class="section-label">สั่งอาหาร</div>
+<h2 class="section-title">สั่งอาหารออนไลน์</h2>
+<p class="section-subtitle">กรอกข้อมูลด้านล่าง เราจะติดต่อกลับเพื่อยืนยันการสั่งซื้อ</p>
+</div>
+
+<div class="order-container fade-in">
+<form class="order-form" id="orderForm" onsubmit="submitOrder(event)">
+<div class="form-row">
+<div class="form-group">
+<label><i class="fas fa-user"></i> ชื่อ-นามสกุล</label>
+<input type="text" name="name" placeholder="กรอกชื่อของคุณ" required>
+</div>
+<div class="form-group">
+<label><i class="fas fa-phone"></i> เบอร์โทรศัพท์</label>
+<input type="tel" name="phone" placeholder="เช่น 096-510-7402" required>
+</div>
+</div>
+
+<div class="form-group">
+<label><i class="fas fa-map-marker-alt"></i> ที่อยู่จัดส่ง</label>
+<textarea name="address" placeholder="กรอกที่อยู่จัดส่งให้ครบถ้วน" required></textarea>
+</div>
+
+<div class="form-group">
+<label><i class="fas fa-utensils"></i> รายการอาหารที่สั่ง</label>
+<textarea name="items" id="orderItems" placeholder="ระบุเมนูและจำนวนที่ต้องการ เช่น ตำปลาร้า 1 จาน, ลาบหมู 2 จาน" required></textarea>
+</div>
+
+<div class="form-row">
+<div class="form-group">
+<label><i class="fas fa-clock"></i> เวลารับอาหาร</label>
+<select name="time" required>
+<option value="">เลือกเวลา</option>
+<option value="asap">asap - เร็วที่สุด</option>
+<option value="11:30">11:30 น.</option>
+<option value="12:00">12:00 น.</option>
+<option value="12:30">12:30 น.</option>
+<option value="13:00">13:00 น.</option>
+<option value="13:30">13:30 น.</option>
+<option value="14:00">14:00 น.</option>
+<option value="14:30">14:30 น.</option>
+<option value="15:00">15:00 น.</option>
+<option value="15:30">15:30 น.</option>
+<option value="16:00">16:00 น.</option>
+<option value="16:30">16:30 น.</option>
+<option value="17:00">17:00 น.</option>
+<option value="17:30">17:30 น.</option>
+<option value="18:00">18:00 น.</option>
+<option value="18:30">18:30 น.</option>
+<option value="19:00">19:00 น.</option>
+</select>
+</div>
+<div class="form-group">
+<label><i class="fas fa-credit-card"></i> วิธีชำระเงิน</label>
+<select name="payment" required>
+<option value="">เลือกวิธีชำระ</option>
+<option value="cod">💵 เก็บเงินปลายทาง</option>
+<option value="transfer">🏦 โอนเงิน</option>
+</select>
+</div>
+</div>
+
+<div class="form-group">
+<label><i class="fas fa-sticky-note"></i> หมายเหตุ (ถ้ามี)</label>
+<input type="text" name="note" placeholder="เช่น ไม่ใส่ผักชี, เผ็ดน้อย, ไม่ใส่ปลาร้า">
+</div>
+
+<button type="submit" class="submit-order">
+<i class="fas fa-paper-plane"></i> ส่งคำสั่งซื้อ
+</button>
+</form>
+</div>
+</section>
+
+<!-- Reviews -->
+<section class="section" id="reviews">
+<div class="section-header fade-in">
+<div class="section-label">รีวิวจากลูกค้า</div>
+<h2 class="section-title">ลูกค้าพูดถึงเรา</h2>
+<p class="section-subtitle">เสียงตอบรับจากลูกค้าที่มาลองชิมอาหารอีสานรสแซ่บของเรา</p>
+</div>
+
+<div class="reviews-grid">
+<div class="review-card fade-in">
+<div class="review-header">
+<div class="review-avatar">ค</div>
+<div class="review-info">
+<h4>คุณกานต์</h4>
+<div class="review-stars">
+<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+</div>
+</div>
+</div>
+<p class="review-text">"ตำปลาร้าที่นี่แซ่บสุดๆ! ปลาร้าต้มสุก ไม่คาว รสชาติกลมกล่อม เผ็ดถึงใจจริงๆ สั่งมาทานที่บ้านหลายครั้งแล้ว อร่อยทุกครั้ง"</p>
+</div>
+
+<div class="review-card fade-in">
+<div class="review-header">
+<div class="review-avatar">น</div>
+<div class="review-info">
+<h4>คุณน้ำผึ้ง</h4>
+<div class="review-stars">
+<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+</div>
+</div>
+</div>
+<p class="review-text">"ไทยเหลาทะเลรวมอร่อยมาก! ทะเลสดทุกคำ กุ้งตัวโต ปลาหมึกหนึบๆ ยำรสแซ่บสมชื่อ ราคา 139 บาทคุ้มสุดๆ แนะนำเลยค่ะ"</p>
+</div>
+
+<div class="review-card fade-in">
+<div class="review-header">
+<div class="review-avatar">ส</div>
+<div class="review-info">
+<h4>คุณสมชาย</h4>
+<div class="review-stars">
+<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+</div>
+</div>
+</div>
+<p class="review-text">"ลาบหมูหอมข้าวคั่วมาก หมูสับสด ไม่เหนียว รสชาติเข้มข้น สั่งมาทานคู่กับข้าวเหนียวร้อนๆ ฟินสุดๆ บริการจัดส่งเร็วด้วยครับ"</p>
+</div>
+
+<div class="review-card fade-in">
+<div class="review-header">
+<div class="review-avatar">ม</div>
+<div class="review-info">
+<h4>คุณมายด์</h4>
+<div class="review-stars">
+<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+</div>
+</div>
+</div>
+<p class="review-text">"ร้านนี้อาหารสดใหม่จริงๆ สั่งยำวุ้นเส้นมา กุ้งสดมาก วุ้นเส้นนุ่มไม่เละ น้ำยำรสแซ่บ เปรี้ยว เผ็ด หวาน กำลังดี จะสั่งอีกแน่นอนค่ะ"</p>
+</div>
+
+<div class="review-card fade-in">
+<div class="review-header">
+<div class="review-avatar">ต</div>
+<div class="review-info">
+<h4>คุณตั้ม</h4>
+<div class="review-stars">
+<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+</div>
+</div>
+</div>
+<p class="review-text">"ชอบที่มีเมนูตำไม่ปลาร้าด้วย คนในบ้านไม่ทานปลาร้า ตำไทยและตำข้าวโพดอร่อยมาก รสชาติเปรี้ยวหวานกำลังดี สั่งประจำเลยครับ"</p>
+</div>
+
+<div class="review-card fade-in">
+<div class="review-header">
+<div class="review-avatar">พ</div>
+<div class="review-info">
+<h4>คุณพลอย</h4>
+<div class="review-stars">
+<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+</div>
+</div>
+</div>
+<p class="review-text">"ตำปูปลาร้าเผ็ดจัด แซ่บสะใจ! ปูดองเนื้อแน่น ไม่มีกลิ่นคาว รสชาติเค็มเปรี้ยวเผ็ดลงตัว ใครชอบเผ็ดต้องลองค่ะ สั่งมา 3 ครั้งแล้ว"</p>
+</div>
+</div>
+</section>
+
+<!-- Contact -->
+<section class="section" id="contact">
+<div class="section-header fade-in">
+<div class="section-label">ติดต่อเรา</div>
+<h2 class="section-title">มาหาเราได้ที่นี่</h2>
+<p class="section-subtitle">ส้มตำแซ่บนัว ครัวสมใจ พร้อมให้บริการทุกวัน</p>
+</div>
+
+<div class="contact-grid">
+<div class="contact-info fade-in">
+<div class="contact-item">
+<div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+<div class="contact-details">
+<h4>ที่อยู่ร้าน</h4>
+<p>28 ร่อนพิบูลย์ 2<br>ตำบล ร่อนพิบูลย์ อำเภอร่อนพิบูลย์<br>นครศรีธรรมราช 80130</p>
+</div>
+</div>
+
+<div class="contact-item">
+<div class="contact-icon"><i class="fas fa-phone"></i></div>
+<div class="contact-details">
+<h4>เบอร์โทรศัพท์</h4>
+<a href="tel:0965107402">096-510-7402</a>
+</div>
+</div>
+
+<div class="contact-item">
+<div class="contact-icon"><i class="fas fa-clock"></i></div>
+<div class="contact-details">
+<h4>เวลาเปิด-ปิด</h4>
+<p>ทุกวัน 11:30 - 19:30 น.</p>
+</div>
+</div>
+
+<div class="contact-item">
+<div class="contact-icon"><i class="fab fa-facebook-f"></i></div>
+<div class="contact-details">
+<h4>Facebook</h4>
+<a href="https://www.facebook.com/weerapol.yenanong" target="_blank">Weerapol Yenanong</a><br>
+<a href="https://www.facebook.com/profile.php?id=61585298592151" target="_blank">Facebook Page</a>
+</div>
+</div>
+
+<div class="contact-item">
+<div class="contact-icon"><i class="fab fa-tiktok"></i></div>
+<div class="contact-details">
+<h4>TikTok</h4>
+<a href="https://www.tiktok.com/@krua_somjai" target="_blank">@krua_somjai</a>
+</div>
+</div>
+
+<div class="contact-item">
+<div class="contact-icon"><i class="fab fa-line"></i></div>
+<div class="contact-details">
+<h4>Line</h4>
+<p>เพิ่มเพื่อนโดยแสกน QR Code</p>
+<div class="social-links">
+<a href="https://www.facebook.com/weerapol.yenanong" class="social-link facebook" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+<a href="https://www.tiktok.com/@krua_somjai" class="social-link tiktok" target="_blank" title="TikTok"><i class="fab fa-tiktok"></i></a>
+<a href="#" class="social-link line" title="Line"><i class="fab fa-line"></i></a>
+</div>
+</div>
+</div>
+</div>
+
+<div class="map-container fade-in">
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1575.1234567890123!2d99.8167!3d8.9333!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjgg4LmA4LiX4Lio4Lia4Liy4LiE4LiZ4LiE4Lij4LiZ4LiE4Lij4LiZ4LiE4Lij!5e0!3m2!1sth!2sth!4v1234567890" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+</div>
+</div>
+</section>
+
+<!-- Footer -->
+<footer>
+<div class="footer-content">
+<img src="images/โลโก้ร้าน.png" alt="ครัวสมใจ ส้มตำแซ่บนัว" class="footer-logo-img">
+<div class="footer-logo">ส้มตำแซ่บนัว ครัวสมใจ</div>
+<p class="footer-tagline">แซ่บนัวครบรส วัตถุดิบสดใหม่ ทุกจานใส่ใจ</p>
+<div class="footer-divider"></div>
+<p class="footer-copyright">© 2026 ส้มตำแซ่บนัว ครัวสมใจ | 28 ร่อนพิบูลย์ 2 ตำบลร่อนพิบูลย์ อำเภอร่อนพิบูลย์ นครศรีธรรมราช 80130 | โทร 096-510-7402</p>
+</div>
+</footer>
+
+<!-- Cart Sidebar -->
+<div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+<div class="cart-sidebar" id="cartSidebar">
+<div class="cart-header">
+<h3><i class="fas fa-shopping-cart"></i> ตะกร้าสินค้า</h3>
+<button class="cart-close" onclick="toggleCart()">✕</button>
+</div>
+<div class="cart-items" id="cartItems">
+<div class="cart-empty">
+<i class="fas fa-shopping-basket" style="font-size: 3rem; color: var(--gray); margin-bottom: 1rem;"></i>
+<p>ตะกร้าว่างเปล่า</p>
+<p style="font-size: 0.85rem; margin-top: 0.5rem;">เลือกเมนูที่ชอบและกด "เพิ่ม" เพื่อสั่งอาหาร</p>
+</div>
+</div>
+<div class="cart-footer">
+<div class="cart-total">
+<span>รวมทั้งหมด</span>
+<span class="cart-total-price" id="cartTotal">฿0</span>
+</div>
+<button class="cart-checkout" onclick="checkout()">
+<i class="fas fa-paper-plane"></i> สั่งอาหารเลย
+</button>
+</div>
+</div>
+
+<!-- Cart Float Button -->
+<button class="cart-float-btn" id="cartFloatBtn" onclick="toggleCart()">
+<i class="fas fa-shopping-cart"></i>
+<span class="cart-count" id="cartCount">0</span>
+</button>
+
+<!-- Toast -->
+<div class="toast" id="toast">
+<i class="fas fa-check-circle" style="color: #00e676;"></i>
+<span id="toastMessage">เพิ่มลงตะกร้าแล้ว!</span>
+</div>
+
+<script>
+// ===== PARTICLES =====
+function createParticles() {
+    const container = document.getElementById('particles');
+    for (let i = 0; i < 30; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.animationDelay = Math.random() * 8 + 's';
+        particle.style.animationDuration = (5 + Math.random() * 5) + 's';
+        container.appendChild(particle);
+    }
+}
+createParticles();
+
+// ===== NAVBAR SCROLL =====
+let lastScroll = 0;
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+    const currentScroll = window.pageYOffset;
+    if (currentScroll > 100) {
+        navbar.classList.remove('hidden');
+    } else {
+        navbar.classList.add('hidden');
+    }
+    lastScroll = currentScroll;
+});
+navbar.classList.add('hidden');
+
+// ===== FADE IN ANIMATION =====
+const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+        }
+    });
+}, observerOptions);
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+// ===== MENU FILTER =====
+function filterMenu(category) {
+    const buttons = document.querySelectorAll('.category-btn');
+    buttons.forEach(btn => btn.classList.remove('active'));
+    event.target.classList.add('active');
+
+    const cards = document.querySelectorAll('.menu-card');
+    cards.forEach(card => {
+        if (category === 'all' || card.dataset.category === category) {
+            card.classList.remove('hidden');
+            setTimeout(() => card.classList.add('visible'), 50);
+        } else {
+            card.classList.add('hidden');
+        }
+    });
+}
+
+// ===== CART =====
+let cart = [];
+
+function addToCart(name, price, image) {
+    const existing = cart.find(item => item.name === name);
+    if (existing) {
+        existing.qty++;
+    } else {
+        cart.push({ name, price, image, qty: 1 });
+    }
+    updateCartUI();
+    showToast('เพิ่ม ' + name + ' ลงตะกร้าแล้ว!');
+}
+
+function removeFromCart(index) {
+    cart.splice(index, 1);
+    updateCartUI();
+}
+
+function changeQty(index, delta) {
+    cart[index].qty += delta;
+    if (cart[index].qty <= 0) {
+        cart.splice(index, 1);
+    }
+    updateCartUI();
+}
+
+function updateCartUI() {
+    const cartItems = document.getElementById('cartItems');
+    const cartCount = document.getElementById('cartCount');
+    const cartTotal = document.getElementById('cartTotal');
+    const orderItems = document.getElementById('orderItems');
+
+    const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
+    const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+
+    cartCount.textContent = totalQty;
+    cartTotal.textContent = '฿' + totalPrice.toLocaleString();
+
+    if (cart.length === 0) {
+        cartItems.innerHTML = `
+            <div class="cart-empty">
+                <i class="fas fa-shopping-basket" style="font-size: 3rem; color: var(--gray); margin-bottom: 1rem;"></i>
+                <p>ตะกร้าว่างเปล่า</p>
+                <p style="font-size: 0.85rem; margin-top: 0.5rem;">เลือกเมนูที่ชอบและกด "เพิ่ม" เพื่อสั่งอาหาร</p>
+            </div>`;
+    } else {
+        cartItems.innerHTML = cart.map((item, i) => `
+            <div class="cart-item">
+                <img src="${item.image}" alt="${item.name}" class="cart-item-image">
+                <div class="cart-item-info">
+                    <div class="cart-item-name">${item.name}</div>
+                    <div class="cart-item-price">฿${item.price} x ${item.qty} = ฿${(item.price * item.qty).toLocaleString()}</div>
+                    <div class="cart-item-qty">
+                        <button class="qty-btn" onclick="changeQty(${i}, -1)">−</button>
+                        <span>${item.qty}</span>
+                        <button class="qty-btn" onclick="changeQty(${i}, 1)">+</button>
+                        <button class="qty-btn" onclick="removeFromCart(${i})" style="margin-left: auto; color: #ff4444;">🗑</button>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    // Update order form
+    if (orderItems && cart.length > 0) {
+        orderItems.value = cart.map(item => `${item.name} ${item.qty} จาน`).join(', ');
+    }
+}
+
+function toggleCart() {
+    document.getElementById('cartSidebar').classList.toggle('open');
+    document.getElementById('cartOverlay').classList.toggle('open');
+}
+
+function checkout() {
+    if (cart.length === 0) {
+        showToast('กรุณาเลือกเมนูก่อนสั่งอาหาร');
+        return;
+    }
+    toggleCart();
+    document.getElementById('order').scrollIntoView({ behavior: 'smooth' });
+    showToast('กรุณากรอกข้อมูลเพื่อสั่งอาหาร');
+}
+
+function showToast(message) {
+    const toast = document.getElementById('toast');
+    document.getElementById('toastMessage').textContent = message;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 3000);
+}
+
+// ===== ORDER FORM =====
+function submitOrder(e) {
+    e.preventDefault();
+    const form = e.target;
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData);
+
+    let message = '🍽️ สั่งอาหารจาก ส้มตำแซ่บนัว ครัวสมใจ%0A%0A';
+    message += '👤 ชื่อ: ' + encodeURIComponent(data.name) + '%0A';
+    message += '📞 เบอร์: ' + encodeURIComponent(data.phone) + '%0A';
+    message += '🍴 รายการ: ' + encodeURIComponent(data.items) + '%0A';
+    message += '⏰ เวลา: ' + encodeURIComponent(data.time) + '%0A';
+    message += '💳 ชำระ: ' + (data.payment === 'cod' ? 'เก็บเงินปลายทาง' : 'โอนเงิน') + '%0A';
+    if (data.note) message += '📝 หมายเหตุ: ' + encodeURIComponent(data.note) + '%0A';
+
+    const phone = '0965107402';
+    window.open('https://lin.ee/5Qev6zd', '_blank');
+showToast('กำลังเปิด LINE เพื่อส่งคำสั่งซื้อ...');
+;
+}
+
+// ===== MOBILE MENU =====
+function toggleMobileMenu() {
+    const links = document.querySelector('.navbar-links');
+    links.style.display = links.style.display === 'flex' ? 'none' : 'flex';
+    links.style.position = 'absolute';
+    links.style.top = '100%';
+    links.style.left = '0';
+    links.style.right = '0';
+    links.style.flexDirection = 'column';
+    links.style.background = 'rgba(10,10,10,0.98)';
+    links.style.padding = '1rem';
+    links.style.gap = '1rem';
+    links.style.borderBottom = '1px solid rgba(255,42,0,0.2)';
+}
+</script>
+</body>
+</html>

@@ -392,7 +392,7 @@ footer { background: #050505; border-top: 1px solid rgba(255,42,0,0.2); padding:
 <i class="fas fa-pepper-hot"></i>
 <i class="fas fa-pepper-hot"></i>
 </div>
-<button class="add-to-cart" onclick="addToCart('เมนูปลาร้า2', 45-139, 'images/menu2.webp')">
+<button class="add-to-cart" onclick="addToCart('เมนูปลาร้า2', 45, 'images/menu2.webp')">
 <i class="fas fa-plus"></i> เพิ่ม
 </button>
 </div>
@@ -1058,18 +1058,49 @@ function submitOrder(e) {
     const formData = new FormData(form);
     const data = Object.fromEntries(formData);
 
-    let message = '🍽️ สั่งอาหารจาก ส้มตำแซ่บนัว ครัวสมใจ%0A%0A';
-    message += '👤 ชื่อ: ' + encodeURIComponent(data.name) + '%0A';
-    message += '📞 เบอร์: ' + encodeURIComponent(data.phone) + '%0A';
-    message += '🍴 รายการ: ' + encodeURIComponent(data.items) + '%0A';
-    message += '⏰ เวลา: ' + encodeURIComponent(data.time) + '%0A';
-    message += '💳 ชำระ: ' + (data.payment === 'cod' ? 'เก็บเงินปลายทาง' : 'โอนเงิน') + '%0A';
-    if (data.note) message += '📝 หมายเหตุ: ' + encodeURIComponent(data.note) + '%0A';
+    // Validate required fields
+    if (!data.name || !data.phone || !data.address || !data.items) {
+        showToast('กรุณากรอกข้อมูลให้ครบถ้วน');
+        return;
+    }
 
-    const phone = '0965107402';
-    window.open('https://lin.ee/5Qev6zd', '_blank');
-showToast('กำลังเปิด LINE เพื่อส่งคำสั่งซื้อ...');
-;
+    // Build WhatsApp message
+    let message = '🍽️ สั่งอาหารจาก ส้มตำแซ่บนัว ครัวสมใจ
+
+';
+    message += '👤 ชื่อ: ' + data.name + '
+';
+    message += '📞 เบอร์: ' + data.phone + '
+';
+    message += '📍 ที่อยู่: ' + data.address + '
+';
+    message += '🍴 รายการ: ' + data.items + '
+';
+    message += '⏰ เวลา: ' + (data.time === 'asap' ? 'เร็วที่สุด' : data.time) + '
+';
+    message += '💳 ชำระ: ' + (data.payment === 'cod' ? 'เก็บเงินปลายทาง' : 'โอนเงิน') + '
+';
+    if (data.note) message += '📝 หมายเหตุ: ' + data.note + '
+';
+
+    const phone = '66965107402';
+    const whatsappUrl = 'https://wa.me/' + phone + '?text=' + encodeURIComponent(message);
+
+    const newWindow = window.open(whatsappUrl, '_blank');
+
+    if (newWindow) {
+        showToast('กำลังเปิด WhatsApp เพื่อส่งคำสั่งซื้อ...');
+        cart = [];
+        updateCartUI();
+        form.reset();
+    } else {
+        showToast('กรุณาส่งข้อความไปที่ 096-510-7402');
+        alert('ไม่สามารถเปิด WhatsApp ได้
+
+กรุณาคัดลอกข้อความนี้และส่งไปที่ 096-510-7402:
+
+' + message);
+    }
 }
 
 // ===== MOBILE MENU =====
